@@ -5,6 +5,7 @@ import { type RouterOutputs, api } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
+import LoadingPage from "~/components/Loading";
 
 dayjs.extend(relativeTime);
 
@@ -57,12 +58,29 @@ const PostView = ({ post, author }: PostWithUser) => {
   );
 };
 
-const Home: NextPage = () => {
-  const { data, isLoading } = api.post.getAll.useQuery();
-  const { isSignedIn } = useUser();
+const Feed = () => {
+  const { data, isLoading: postsLoading } = api.post.getAll.useQuery();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (postsLoading) return <LoadingPage />;
   if (!data) return <p>Something went wrong...</p>;
+
+  return (
+    <div className=" flex flex-col">
+      {data?.map((data) => (
+        <PostView {...data} key={data.post.id} />
+      ))}
+    </div>
+  );
+};
+
+const Home: NextPage = () => {
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
+
+  // Start fetching asap to store in cache & use in feed component
+  api.post.getAll.useQuery();
+
+  // Return empty div if user isnt loaded
+  if (!userLoaded) return <div />;
 
   return (
     <>
@@ -82,11 +100,7 @@ const Home: NextPage = () => {
             {isSignedIn && <CreatePostWizard />}
             {isSignedIn && <SignOutButton />}
           </div>
-          <div className=" flex flex-col">
-            {data?.map((data) => (
-              <PostView {...data} key={data.post.id} />
-            ))}
-          </div>
+          <Feed />
         </div>
       </main>
     </>
