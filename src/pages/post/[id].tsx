@@ -1,8 +1,8 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { api } from "~/utils/api";
-import { PageLayoutContainer } from "~/components/pageLayoutContainer";
-import { PostView } from "~/components/postview";
+import { PageLayoutContainer } from "~/components/PageLayoutContainer";
+import { PostView } from "~/components/Postview";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {

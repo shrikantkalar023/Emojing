@@ -52,10 +52,10 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   );
 };
 
-import { PageLayoutContainer } from "~/components/pageLayoutContainer";
+import { PageLayoutContainer } from "~/components/PageLayoutContainer";
 import Image from "next/image";
-import { LoadingPage } from "~/components/loading";
-import { PostView } from "~/components/postview";
+import { LoadingPage } from "~/components/Loading";
+import { PostView } from "~/components/Postview";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 export const getStaticProps: GetStaticProps = async (context) => {

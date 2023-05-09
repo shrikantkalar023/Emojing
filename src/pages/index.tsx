@@ -2,11 +2,11 @@ import { SignInButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import { api } from "~/utils/api";
 import Image from "next/image";
-import { LoadingPage, LoadingSpinner } from "~/components/loading";
+import { LoadingPage, LoadingSpinner } from "~/components/Loading";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { PageLayoutContainer } from "~/components/pageLayoutContainer";
-import { PostView } from "~/components/postview";
+import { PageLayoutContainer } from "~/components/PageLayoutContainer";
+import { PostView } from "~/components/Postview";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
